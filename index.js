@@ -121,13 +121,24 @@ function getWinnersByYear(callBack1, callBack2) {
  and returns the the average number of home team goals and away team goals scored per match
   (Hint: use .reduce and do this in 2 steps) */
 
-function getAverageGoals(/* code here */) {
+function getAverageGoals(data) {
+    const homeGoalTotal = data.reduce(function(total, game){
+        return total + game["Home Team Goals"];
+    }, 0);
 
-    /* code here */
+    let averageHome = homeGoalTotal/data.length;
+
+    const awayGoalTotal = data.reduce(function(total, game){
+        return total + game["Away Team Goals"];
+    },0);
+    
+    let averageAway = awayGoalTotal/data.length;
+
+    return `Average home team goals: ${averageHome}, Average away team goals: ${averageAway}`;
 
 };
 
-getAverageGoals();
+// console.log(getAverageGoals(fifaData));
 
 
 /// STRETCH 🥅 //
@@ -138,25 +149,49 @@ getAverageGoals();
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(/* code here */) {
+function getCountryWins(data, teamInitals) {
 
-    /* code here */
+    const finals = getFinals(data);
+    const winners = [];
+    for(let i = 0; i < finals.length; i++){
+        if(finals[i]["Home Team Goals"] > finals[i]["Away Team Goals"]){
+           winners.push(finals[i]["Home Team Initials"]);
+        } else {
+            winners.push(finals[i]["Away Team Initials"]);
+        }
+    }
+
+    // console.log(winners);
+
+    const filteredWinners = winners.filter(function(game){
+        return game === teamInitals;
+    });
+
+    // console.log(filteredWinners);
+
+    const numberWins = filteredWinners.reduce(function(sum, game){
+        return sum + 1;
+    }, 0);
+
+    // console.log(numberWins);
+
+    return numberWins;
 
 };
 
-// getCountryWins();
+console.log(getCountryWins(fifaData, "BRA"));
 
 /* STRETCH 2: Write a function called getGoals() that accepts a parameter `data`
  and returns the team with the most goals score per appearance (average goals for) in the
   World Cup finals */
 
-function getGoals(/* code here */) {
+function getGoals(data) {
 
-    /* code here */
+    
 
 };
 
-getGoals();
+// getGoals(fifaData);
 
 
 /* STRETCH 3: Write a function called badDefense() that accepts a parameter `data`
