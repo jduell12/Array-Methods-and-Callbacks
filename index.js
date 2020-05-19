@@ -66,7 +66,9 @@ function getFinals(data) {
 
 function getYears(callBackFunction) {
 
+   //calls the callback function to get the array of finals for the data set
    const finals = callBackFunction(fifaData);
+   //returns an array that holds all the years of the finals for the data set
    const years = finals.map((game) => game.Year);
    return years;
    
@@ -80,13 +82,15 @@ callback function `getFinals()` and determine the winner (home or away) of each 
 
 function getWinners(callBackFunction) {
 
+    //gets the array of finals for the fifa data set
     const finals = callBackFunction(fifaData);
     const winners = [];
+    //adds the winners of each game to the winners array
     for(let i = 0; i < finals.length; i++){
         if(finals[i]["Home Team Goals"] > finals[i]["Away Team Goals"]){
-           winners.push(finals[i]["Home Team Name"]);
+           winners.push(`Home Team: ${finals[i]["Home Team Name"]}`);
         } else {
-            winners.push(finals[i]["Away Team Name"]);
+            winners.push(`Away Team: ${finals[i]["Away Team Name"]}`);
         }
     }
     return winners;
@@ -106,7 +110,9 @@ Parameters:
  const strings = [];
 
 function getWinnersByYear(callBack1, callBack2) {
+    //an array to hold the years of the finals
     const years = callBack1(getFinals);
+    //array to hold the names of the winners from the finals
     const winnerNames = callBack2(getFinals);
 
     years.forEach(function(winGame, index){
@@ -122,16 +128,20 @@ function getWinnersByYear(callBack1, callBack2) {
   (Hint: use .reduce and do this in 2 steps) */
 
 function getAverageGoals(data) {
+    // total home goals made
     const homeGoalTotal = data.reduce(function(total, game){
         return total + game["Home Team Goals"];
     }, 0);
 
+    //gets the average of home goals made
     let averageHome = homeGoalTotal/data.length;
 
+    //total of the away goals made
     const awayGoalTotal = data.reduce(function(total, game){
         return total + game["Away Team Goals"];
     },0);
     
+    //gets average of away goals made
     let averageAway = awayGoalTotal/data.length;
 
     return `Average home team goals: ${averageHome}, Average away team goals: ${averageAway}`;
@@ -151,8 +161,10 @@ Hint: use `.reduce` */
 
 function getCountryWins(data, teamInitals) {
 
+    //gets the array of games in the finals for the world cup
     const finals = getFinals(data);
     const winners = [];
+    //adds the team initials for who won each final game
     for(let i = 0; i < finals.length; i++){
         if(finals[i]["Home Team Goals"] > finals[i]["Away Team Goals"]){
            winners.push(finals[i]["Home Team Initials"]);
@@ -163,12 +175,14 @@ function getCountryWins(data, teamInitals) {
 
     // console.log(winners);
 
+    //returns an array that has only the team initials that match the given argument teamInitials
     const filteredWinners = winners.filter(function(game){
         return game === teamInitals;
     });
 
     // console.log(filteredWinners);
 
+    //returns the total number of wins for that particular team
     const numberWins = filteredWinners.reduce(function(sum, game){
         return sum + 1;
     }, 0);
@@ -179,7 +193,7 @@ function getCountryWins(data, teamInitals) {
 
 };
 
-console.log(getCountryWins(fifaData, "BRA"));
+// console.log(getCountryWins(fifaData, "BRA"));
 
 /* STRETCH 2: Write a function called getGoals() that accepts a parameter `data`
  and returns the team with the most goals score per appearance (average goals for) in the
@@ -187,6 +201,7 @@ console.log(getCountryWins(fifaData, "BRA"));
 
 function getGoals(data) {
 
+    const finals = getFinals(data);
     
 
 };
@@ -208,3 +223,18 @@ badDefense();
 
 /* If you still have time, use the space below to work on any stretch goals of your chosing as
  listed in the README file. */
+
+ /*Use .map to format country names into <h1> HTML headers. */
+
+ //gets the country names from the data set and puts them into an array
+ const countryNames = fifaData.map(function(game){
+    return game["Home Team Name"]
+ });
+
+ //changes each item in the array to a html h1 header and returns the new array
+ const htmlHeaders = countryNames.map(function(game, index){
+    let header = `<h1>${game}</h1>`;
+    return  header;
+ });
+
+//  console.log(htmlHeaders);
