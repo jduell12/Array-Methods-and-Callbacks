@@ -195,13 +195,26 @@ function getCountryWins(data, teamInitals) {
 
 // console.log(getCountryWins(fifaData, "BRA"));
 
+ /*Extra Stretch goal: Use .map to format country names into <h1> HTML headers. */
+
+ //gets the country names from the data set and puts them into an array
+ const countryNames = fifaData.map(function(game){
+    return game["Home Team Name"]
+ });
+
+ //changes each item in the array to a html h1 header and returns the new array
+ const htmlHeaders = countryNames.map(function(game, index){
+    let header = `<h1>${game}</h1>`;
+    return  header;
+ });
+
+//  console.log(htmlHeaders);
+
 /* STRETCH 2: Write a function called getGoals() that accepts a parameter `data`
  and returns the team with the most goals score per appearance (average goals for) in the
   World Cup finals */
 
 function getGoals(data) {
-
-    const finals = getFinals(data);
     
 
 };
@@ -224,17 +237,3 @@ badDefense();
 /* If you still have time, use the space below to work on any stretch goals of your chosing as
  listed in the README file. */
 
- /*Use .map to format country names into <h1> HTML headers. */
-
- //gets the country names from the data set and puts them into an array
- const countryNames = fifaData.map(function(game){
-    return game["Home Team Name"]
- });
-
- //changes each item in the array to a html h1 header and returns the new array
- const htmlHeaders = countryNames.map(function(game, index){
-    let header = `<h1>${game}</h1>`;
-    return  header;
- });
-
-//  console.log(htmlHeaders);
