@@ -11,7 +11,8 @@ following pieces of data
 (b) Away Team name for 2014 world cup final
 (c) Home Team goals for 2014 world cup final
 (d) Away Team goals for 2014 world cup final
-(e) Winner of 2014 world cup final */
+(e) Winner of 2014 world cup final
+*/
 
 const worldCup2014 = fifaData.filter(function(team){
     return team.Year === 2014;
@@ -29,11 +30,25 @@ const homeTeamGoals = worldCup2014.map((game) => game["Home Team Goals"]);
 
 const awayTeamGoals = worldCup2014.map((game) => game["Away Team Goals"]);
 
-console.log(worldCup2014);
+const winner = worldCup2014.filter(function(game){
+    return game.Stage === "Final";
+});
+
+const winnerTeam = function(){
+    if(winner.map((game) => game["Home Team Goals"]) > winner.map((game) => game["Away Team Goals"]) ){
+        console.log(winner.map((game) => game["Home Team Name"]));
+    } else {
+        console.log(winner.map((game) => game["Away Team Name"]));
+    }
+}
+
+
+// console.log(worldCup2014);
 // console.log(homeTeamNames);
 // console.log(awayTeamNames);
 // console.log(homeTeamGoals);
 // console.log(awayTeamGoals);
+// winnerTeam();
 
 
 
